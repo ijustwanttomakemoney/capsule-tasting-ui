@@ -204,7 +204,7 @@ function cardEl(c){
       <h3 class="card__title">${escapeHtml(c.name)}</h3>
       <div class="card__meta">
         <span class="tag">${labelType(c.type)}</span>
-        ${(c.tags||[]).slice(0,3).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join('')}
+        ${c.collection ? `<span class="tag">${escapeHtml(c.collection)}</span>` : ''}
       </div>
     </div>
     <div class="card__footer">
@@ -312,7 +312,7 @@ function openDetail(c){
   detailMeta.innerHTML = `
     <span class="tag">${labelType(c.type)}</span>
     <span class="tag">Original</span>
-    ${(c.tags||[]).slice(0,5).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join('')}
+    ${c.collection ? `<span class="tag">${escapeHtml(c.collection)}</span>` : ''}
   `;
 
   const pct = Math.round(((c.intensity||0) / 13) * 100);
@@ -496,6 +496,52 @@ importInput.addEventListener('change', async ()=>{
   }
 });
 
+function normalizeDrinkTypeFromName(name){
+  const n = (name||'').toLowerCase();
+  if(n.includes('lungo')) return 'lungo';
+  if(n.includes('ristretto')) return 'ristretto';
+  if(n.includes('espresso')) return 'espresso';
+  return null;
+}
+
+function normalizeCatalog(incoming){
+  // Merge duplicates by capsule name (Nespresso page repeats some capsules in promo sections).
+  const normName = (s)=>String(s||'').trim().toLowerCase();
+  const m = new Map();
+
+  for(const c of incoming){
+    if(!c || !c.name) continue;
+    const key = normName(c.name);
+    const prev = m.get(key);
+
+    const inferredType = normalizeDrinkTypeFromName(c.name) || c.type || 'espresso';
+    const collections = new Set([...(prev?.collections||[]), ...(prev?.collection?[prev.collection]:[]), ...(c.collections||[]), ...(c.collection?[c.collection]:[])]
+      .filter(Boolean));
+
+    const merged = {
+      ...(prev||{}),
+      ...c,
+      // stable ID: include normalized name only (one capsule concept), not collection
+      id: `original:${key}`.replace(/[^a-z0-9:_-]/g,'-'),
+      system: 'original',
+      type: inferredType,
+      // Keep the best intensity we have
+      intensity: (c.intensity ?? prev?.intensity) ?? null,
+      // Prefer a non-null price if any
+      pricePerCapsuleEUR: (c.pricePerCapsuleEUR ?? prev?.pricePerCapsuleEUR) ?? null,
+      // Store a primary collection but also keep all of them
+      collection: c.collection || prev?.collection || null,
+      collections: Array.from(collections),
+      // Merge tags
+      tags: Array.from(new Set([...(prev?.tags||[]), ...(c.tags||[])])),
+    };
+
+    m.set(key, merged);
+  }
+
+  return Array.from(m.values());
+}
+
 async function loadNespressoCatalog({mode}={mode:'merge'}){
   // mode: merge | replace
   const url = './nespresso-original-catalog.json';
@@ -503,8 +549,10 @@ async function loadNespressoCatalog({mode}={mode:'merge'}){
   if(!res.ok) throw new Error(`Failed to fetch ${url} (${res.status})`);
   const parsed = await res.json();
 
-  const incoming = Array.isArray(parsed.catalog) ? parsed.catalog : [];
-  if(incoming.length === 0) throw new Error('Catalog file was empty or invalid');
+  const incomingRaw = Array.isArray(parsed.catalog) ? parsed.catalog : [];
+  if(incomingRaw.length === 0) throw new Error('Catalog file was empty or invalid');
+
+  const incoming = normalizeCatalog(incomingRaw);
 
   if(mode === 'replace'){
     state = { catalog: incoming, tastings: state.tastings };
