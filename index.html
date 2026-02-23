@@ -204,8 +204,9 @@
       <form id="form" class="modal__body">
         <div class="twoCol">
           <div class="field">
-            <label class="label" for="capsuleName">Capsule name</label>
-            <input id="capsuleName" required placeholder="e.g., Arpeggio" />
+            <label class="label" for="capsuleName">Capsule</label>
+            <input id="capsuleName" required readonly />
+            <div class="hint">(from catalog)</div>
           </div>
           <div class="field">
             <label class="label" for="capsuleSystem">System</label>
@@ -219,16 +220,17 @@
         <div class="twoCol">
           <div class="field">
             <label class="label" for="capsuleType">Drink</label>
-            <select id="capsuleType" required>
+            <select id="capsuleType" required disabled>
               <option value="espresso">Espresso</option>
               <option value="lungo">Lungo</option>
               <option value="ristretto">Ristretto</option>
-              <option value="milk">Works with milk</option>
             </select>
+            <div class="hint">(from catalog)</div>
           </div>
           <div class="field">
-            <label class="label" for="capsuleIntensity">Intensity (0–13)</label>
-            <input id="capsuleIntensity" type="number" min="0" max="13" value="8" />
+            <label class="label" for="capsuleIntensity">Intensity</label>
+            <input id="capsuleIntensity" type="number" min="0" max="13" value="8" readonly />
+            <div class="hint">(from catalog)</div>
           </div>
         </div>
 

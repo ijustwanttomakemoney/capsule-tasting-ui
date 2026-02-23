@@ -445,12 +445,14 @@ function openDetail(c){
 }
 
 function ensureCapsuleInCatalog({ name, system, type, intensity, tags }){
-  const norm = name.trim().toLowerCase();
-  let cap = state.catalog.find(c=>c.name.trim().toLowerCase() === norm && c.system === system);
+  // Catalog entries should be treated as product data (not edited during tasting log).
+  // If the capsule isn't found, we create a minimal entry, but we do NOT overwrite existing product fields.
+  const norm = String(name||'').trim().toLowerCase();
+  let cap = state.catalog.find(c=>String(c.name||'').trim().toLowerCase() === norm && c.system === system);
   if(!cap){
     cap = {
       id: `${system}:${norm}`.replaceAll(/[^a-z0-9:_-]/g,'-'),
-      name: name.trim(),
+      name: String(name||'').trim(),
       system,
       type,
       intensity: clampInt(intensity, 0, 13),
@@ -458,9 +460,7 @@ function ensureCapsuleInCatalog({ name, system, type, intensity, tags }){
     };
     state.catalog.push(cap);
   }else{
-    // keep user-updated fields reasonably fresh
-    cap.type = type;
-    cap.intensity = clampInt(intensity,0,13);
+    // Only merge tags from tasting into catalog (optional), never change product attributes.
     cap.tags = Array.from(new Set([...(cap.tags||[]), ...(tags||[])]));
   }
   return cap;
@@ -620,13 +620,17 @@ form.addEventListener('submit', (e)=>{
     tags: chosen,
   });
 
+  // Defensive: if fields are readonly/disabled, prefer existing catalog values.
+  const capType = cap?.type || capsuleType.value;
+  const capIntensity = cap?.intensity ?? Number(capsuleIntensity.value);
+
   state.tastings.push({
     id: crypto.randomUUID(),
     capsuleId: cap.id,
     name: cap.name,
     system: cap.system,
-    type: cap.type,
-    intensity: cap.intensity,
+    type: capType,
+    intensity: capIntensity,
 
     acidity: clampInt(capsuleAcidity.value, 0, 5),
     bitterness: clampInt(capsuleBitterness.value, 0, 5),
