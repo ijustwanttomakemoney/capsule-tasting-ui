@@ -24,15 +24,33 @@ function nowISODate(){
   return `${yyyy}-${mm}-${dd}`;
 }
 
+function clamp(n, min, max){
+  const x = Number(n);
+  if(Number.isNaN(x)) return min;
+  return Math.max(min, Math.min(max, x));
+}
+
+function normalizeTasting(t){
+  if(!t || typeof t !== 'object') return null;
+  return {
+    ...t,
+    rating: clamp(t.rating ?? 0, 0, 5),
+    acidity: clamp(t.acidity ?? 0, 0, 5),
+    bitterness: clamp(t.bitterness ?? 0, 0, 5),
+    aroma: clamp(t.aroma ?? 0, 0, 5),
+    intensity: t.intensity == null ? null : clamp(t.intensity, 0, 13),
+  };
+}
+
 function load(){
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
     if(!raw) return { catalog: SEED_CATALOG, tastings: [] };
     const parsed = JSON.parse(raw);
-    return {
-      catalog: Array.isArray(parsed.catalog) ? parsed.catalog : SEED_CATALOG,
-      tastings: Array.isArray(parsed.tastings) ? parsed.tastings : [],
-    };
+    const catalog = Array.isArray(parsed.catalog) ? parsed.catalog : SEED_CATALOG;
+    const tastingsRaw = Array.isArray(parsed.tastings) ? parsed.tastings : [];
+    const tastings = tastingsRaw.map(normalizeTasting).filter(Boolean);
+    return { catalog, tastings };
   }catch{
     return { catalog: SEED_CATALOG, tastings: [] };
   }
@@ -426,7 +444,7 @@ function renderLog(){
     row.className = 'tastingItem';
     row.innerHTML = `
       <div class="tastingItem__left">
-        <div class="tastingItem__title">${escapeHtml(t.name)} — ${t.rating ?? '—'}/5</div>
+        <div class="tastingItem__title">${escapeHtml(t.name)} — ${(t.rating ?? '—')}/5</div>
         <div class="tastingItem__sub">${escapeHtml(t.date)} · Acidity ${t.acidity ?? '—'}/5 · Bitterness ${t.bitterness ?? '—'}/5 · Aroma ${t.aroma ?? '—'}/5</div>
       </div>
       <div class="tastingItem__right">
