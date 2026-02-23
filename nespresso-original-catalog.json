@@ -1,0 +1,779 @@
+{
+  "catalog": [
+    {
+      "id": "original:caramello",
+      "name": "Caramello",
+      "system": "original",
+      "type": "espresso",
+      "intensity": null,
+      "collection": "Barista Creations - Recettes",
+      "pricePerCapsuleEUR": 0.55,
+      "tags": [
+        "barista creations - recettes"
+      ]
+    },
+    {
+      "id": "original:chiaro",
+      "name": "Chiaro",
+      "system": "original",
+      "type": "espresso",
+      "intensity": null,
+      "collection": "Barista Creations - Recettes",
+      "pricePerCapsuleEUR": 0.55,
+      "tags": [
+        "barista creations - recettes"
+      ]
+    },
+    {
+      "id": "original:corto",
+      "name": "Corto",
+      "system": "original",
+      "type": "espresso",
+      "intensity": null,
+      "collection": "Barista Creations - Recettes",
+      "pricePerCapsuleEUR": 0.55,
+      "tags": [
+        "barista creations - recettes"
+      ]
+    },
+    {
+      "id": "original:nocciola",
+      "name": "Nocciola",
+      "system": "original",
+      "type": "espresso",
+      "intensity": null,
+      "collection": "Barista Creations - Recettes",
+      "pricePerCapsuleEUR": 0.55,
+      "tags": [
+        "barista creations - recettes"
+      ]
+    },
+    {
+      "id": "original:pistachio-vanilla",
+      "name": "Pistachio Vanilla",
+      "system": "original",
+      "type": "espresso",
+      "intensity": null,
+      "collection": "Barista Creations - Recettes",
+      "pricePerCapsuleEUR": 0.57,
+      "tags": [
+        "barista creations - recettes"
+      ]
+    },
+    {
+      "id": "original:scuro",
+      "name": "Scuro",
+      "system": "original",
+      "type": "espresso",
+      "intensity": null,
+      "collection": "Barista Creations - Recettes",
+      "pricePerCapsuleEUR": 0.55,
+      "tags": [
+        "barista creations - recettes"
+      ]
+    },
+    {
+      "id": "original:vaniglia",
+      "name": "Vaniglia",
+      "system": "original",
+      "type": "espresso",
+      "intensity": null,
+      "collection": "Barista Creations - Recettes",
+      "pricePerCapsuleEUR": 0.55,
+      "tags": [
+        "barista creations - recettes"
+      ]
+    },
+    {
+      "id": "original:decaffeinato",
+      "name": "Decaffeinato",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 7,
+      "collection": "Collection Compostable",
+      "pricePerCapsuleEUR": 0.52,
+      "tags": [
+        "collection compostable",
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:ispirazione-aosta",
+      "name": "Ispirazione Aosta",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 5,
+      "collection": "Collection Compostable",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "collection compostable",
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:ispirazione-emilia",
+      "name": "Ispirazione Emilia",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 7,
+      "collection": "Collection Compostable",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "collection compostable",
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:ispirazione-palermo",
+      "name": "Ispirazione Palermo",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 10,
+      "collection": "Collection Compostable",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "collection compostable",
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:ispirazione-sicilia",
+      "name": "Ispirazione Sicilia",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 8,
+      "collection": "Collection Compostable",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "collection compostable"
+      ]
+    },
+    {
+      "id": "original:peru-organic",
+      "name": "Peru Organic",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 5,
+      "collection": "Collection Compostable",
+      "pricePerCapsuleEUR": 0.56,
+      "tags": [
+        "collection compostable"
+      ]
+    },
+    {
+      "id": "original:arpeggio-decaffeinato",
+      "name": "Arpeggio Decaffeinato",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 9,
+      "collection": "Decaffeinato",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "decaffeinato"
+      ]
+    },
+    {
+      "id": "original:decaffeinato",
+      "name": "Decaffeinato",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 7,
+      "collection": "Decaffeinato",
+      "pricePerCapsuleEUR": 0.52,
+      "tags": [
+        "decaffeinato",
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:ristretto-decaffeinato",
+      "name": "Ristretto Decaffeinato",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 10,
+      "collection": "Decaffeinato",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "decaffeinato"
+      ]
+    },
+    {
+      "id": "original:vienna-lungo-decaffeinato",
+      "name": "Vienna Lungo Decaffeinato",
+      "system": "original",
+      "type": "lungo",
+      "intensity": 6,
+      "collection": "Decaffeinato",
+      "pricePerCapsuleEUR": 0.54,
+      "tags": [
+        "decaffeinato",
+        "lungo"
+      ]
+    },
+    {
+      "id": "original:volluto-decaffeinato",
+      "name": "Volluto Decaffeinato",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 4,
+      "collection": "Decaffeinato",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "decaffeinato"
+      ]
+    },
+    {
+      "id": "original:caff--florian",
+      "name": "Caffè Florian",
+      "system": "original",
+      "type": "ristretto",
+      "intensity": 9,
+      "collection": "Editions limitées",
+      "pricePerCapsuleEUR": 0.57,
+      "tags": [
+        "editions limitées",
+        "ristretto"
+      ]
+    },
+    {
+      "id": "original:capriccio",
+      "name": "Capriccio",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 5,
+      "collection": "Espresso",
+      "pricePerCapsuleEUR": 0.46,
+      "tags": [
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:cosi",
+      "name": "Cosi",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 4,
+      "collection": "Espresso",
+      "pricePerCapsuleEUR": 0.46,
+      "tags": [
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:peru-organic",
+      "name": "Peru Organic",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 6,
+      "collection": "Espresso",
+      "pricePerCapsuleEUR": 0.54,
+      "tags": [
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:sweet-almond---hibiscus",
+      "name": "Sweet Almond & Hibiscus",
+      "system": "original",
+      "type": "espresso",
+      "intensity": null,
+      "collection": "Espresso",
+      "pricePerCapsuleEUR": 0.57,
+      "tags": [
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:tanzania",
+      "name": "Tanzania",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 5,
+      "collection": "Espresso",
+      "pricePerCapsuleEUR": 0.61,
+      "tags": [
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:volluto",
+      "name": "Volluto",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 4,
+      "collection": "Espresso",
+      "pricePerCapsuleEUR": 0.44,
+      "tags": [
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:arpeggio",
+      "name": "Arpeggio",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 9,
+      "collection": "Ispirazione Italiana",
+      "pricePerCapsuleEUR": 0.44,
+      "tags": [
+        "ispirazione italiana"
+      ]
+    },
+    {
+      "id": "original:arpeggio-extra",
+      "name": "Arpeggio Extra",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 9,
+      "collection": "Ispirazione Italiana",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "ispirazione italiana"
+      ]
+    },
+    {
+      "id": "original:caff--florian",
+      "name": "Caffè Florian",
+      "system": "original",
+      "type": "ristretto",
+      "intensity": 9,
+      "collection": "Ispirazione Italiana",
+      "pricePerCapsuleEUR": 0.57,
+      "tags": [
+        "ispirazione italiana",
+        "ristretto"
+      ]
+    },
+    {
+      "id": "original:ispirazione-aosta",
+      "name": "Ispirazione Aosta",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 5,
+      "collection": "Ispirazione Italiana",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "ispirazione italiana",
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:ispirazione-emilia",
+      "name": "Ispirazione Emilia",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 7,
+      "collection": "Ispirazione Italiana",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "ispirazione italiana",
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:ispirazione-palermo",
+      "name": "Ispirazione Palermo",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 10,
+      "collection": "Ispirazione Italiana",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "ispirazione italiana",
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:ispirazione-sicilia",
+      "name": "Ispirazione Sicilia",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 8,
+      "collection": "Ispirazione Italiana",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "ispirazione italiana"
+      ]
+    },
+    {
+      "id": "original:kazaar",
+      "name": "Kazaar",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 12,
+      "collection": "Ispirazione Italiana",
+      "pricePerCapsuleEUR": 0.46,
+      "tags": [
+        "ispirazione italiana"
+      ]
+    },
+    {
+      "id": "original:livanto",
+      "name": "Livanto",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 6,
+      "collection": "Ispirazione Italiana",
+      "pricePerCapsuleEUR": 0.46,
+      "tags": [
+        "ispirazione italiana"
+      ]
+    },
+    {
+      "id": "original:napoli",
+      "name": "Napoli",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 13,
+      "collection": "Ispirazione Italiana",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "ispirazione italiana"
+      ]
+    },
+    {
+      "id": "original:ristretto",
+      "name": "Ristretto",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 10,
+      "collection": "Ispirazione Italiana",
+      "pricePerCapsuleEUR": 0.46,
+      "tags": [
+        "ispirazione italiana"
+      ]
+    },
+    {
+      "id": "original:roma",
+      "name": "Roma",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 8,
+      "collection": "Ispirazione Italiana",
+      "pricePerCapsuleEUR": 0.46,
+      "tags": [
+        "ispirazione italiana"
+      ]
+    },
+    {
+      "id": "original:venezia",
+      "name": "Venezia",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 8,
+      "collection": "Ispirazione Italiana",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "ispirazione italiana"
+      ]
+    },
+    {
+      "id": "original:colombia",
+      "name": "Colombia",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 6,
+      "collection": "Master Origins",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "master origins"
+      ]
+    },
+    {
+      "id": "original:ethiopia",
+      "name": "Ethiopia",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 4,
+      "collection": "Master Origins",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "master origins"
+      ]
+    },
+    {
+      "id": "original:india",
+      "name": "India",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 11,
+      "collection": "Master Origins",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "master origins"
+      ]
+    },
+    {
+      "id": "original:indonesia",
+      "name": "Indonesia",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 8,
+      "collection": "Master Origins",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "master origins"
+      ]
+    },
+    {
+      "id": "original:nicaragua",
+      "name": "Nicaragua",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 5,
+      "collection": "Master Origins",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "master origins"
+      ]
+    },
+    {
+      "id": "original:peru-organic",
+      "name": "Peru Organic",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 6,
+      "collection": "Master Origins",
+      "pricePerCapsuleEUR": 0.54,
+      "tags": [
+        "master origins"
+      ]
+    },
+    {
+      "id": "original:tanzania",
+      "name": "Tanzania",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 5,
+      "collection": "Master Origins",
+      "pricePerCapsuleEUR": 0.61,
+      "tags": [
+        "master origins"
+      ]
+    },
+    {
+      "id": "original:caf--joyeux",
+      "name": "Café Joyeux",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 5,
+      "collection": "Nespresso pour Café Joyeux",
+      "pricePerCapsuleEUR": 0.57,
+      "tags": [
+        "nespresso pour café joyeux"
+      ]
+    },
+    {
+      "id": "original:kahawa-ya-congo-organic",
+      "name": "Kahawa ya Congo Organic",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 7,
+      "collection": "Reviving Origins",
+      "pricePerCapsuleEUR": 0.69,
+      "tags": [
+        "reviving origins"
+      ]
+    },
+    {
+      "id": "original:hawaii-kona",
+      "name": "Hawaii Kona",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 5,
+      "collection": "Special Reserve - Édition Exclusive",
+      "pricePerCapsuleEUR": 1.5,
+      "tags": [
+        "special reserve - édition exclusive"
+      ]
+    },
+    {
+      "id": "original:arpeggio",
+      "name": "Arpeggio",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 9,
+      "collection": "With Love, since 1986",
+      "pricePerCapsuleEUR": 0.44,
+      "tags": [
+        "with love, since 1986"
+      ]
+    },
+    {
+      "id": "original:capriccio",
+      "name": "Capriccio",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 5,
+      "collection": "With Love, since 1986",
+      "pricePerCapsuleEUR": 0.46,
+      "tags": [
+        "with love, since 1986"
+      ]
+    },
+    {
+      "id": "original:cosi",
+      "name": "Cosi",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 4,
+      "collection": "With Love, since 1986",
+      "pricePerCapsuleEUR": 0.46,
+      "tags": [
+        "with love, since 1986"
+      ]
+    },
+    {
+      "id": "original:nicaragua",
+      "name": "Nicaragua",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 5,
+      "collection": "With Love, since 1986",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "with love, since 1986"
+      ]
+    },
+    {
+      "id": "original:pistachio-vanilla",
+      "name": "Pistachio Vanilla",
+      "system": "original",
+      "type": "espresso",
+      "intensity": null,
+      "collection": "With Love, since 1986",
+      "pricePerCapsuleEUR": 0.57,
+      "tags": [
+        "with love, since 1986"
+      ]
+    },
+    {
+      "id": "original:ristretto",
+      "name": "Ristretto",
+      "system": "original",
+      "type": "ristretto",
+      "intensity": 10,
+      "collection": "With Love, since 1986",
+      "pricePerCapsuleEUR": 0.46,
+      "tags": [
+        "with love, since 1986",
+        "ristretto"
+      ]
+    },
+    {
+      "id": "original:volluto",
+      "name": "Volluto",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 4,
+      "collection": "With Love, since 1986",
+      "pricePerCapsuleEUR": 0.44,
+      "tags": [
+        "with love, since 1986"
+      ]
+    },
+    {
+      "id": "original:buenos-aires-lungo",
+      "name": "Buenos Aires Lungo",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 4,
+      "collection": "World Explorations",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "world explorations"
+      ]
+    },
+    {
+      "id": "original:istanbul-espresso",
+      "name": "Istanbul Espresso",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 8,
+      "collection": "World Explorations",
+      "pricePerCapsuleEUR": 0.48,
+      "tags": [
+        "world explorations"
+      ]
+    },
+    {
+      "id": "original:paris-espresso",
+      "name": "Paris Espresso",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 6,
+      "collection": "World Explorations",
+      "pricePerCapsuleEUR": 0.48,
+      "tags": [
+        "world explorations"
+      ]
+    },
+    {
+      "id": "original:rio-de-janeiro-espresso",
+      "name": "Rio de Janeiro Espresso",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 9,
+      "collection": "World Explorations",
+      "pricePerCapsuleEUR": 0.48,
+      "tags": [
+        "world explorations",
+        "espresso"
+      ]
+    },
+    {
+      "id": "original:shanghai-lungo",
+      "name": "Shanghai Lungo",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 5,
+      "collection": "World Explorations",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "world explorations"
+      ]
+    },
+    {
+      "id": "original:stockholm-lungo",
+      "name": "Stockholm Lungo",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 8,
+      "collection": "World Explorations",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "world explorations"
+      ]
+    },
+    {
+      "id": "original:tokyo-lungo",
+      "name": "Tokyo Lungo",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 6,
+      "collection": "World Explorations",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "world explorations"
+      ]
+    },
+    {
+      "id": "original:vienna-lungo",
+      "name": "Vienna Lungo",
+      "system": "original",
+      "type": "espresso",
+      "intensity": 6,
+      "collection": "World Explorations",
+      "pricePerCapsuleEUR": 0.49,
+      "tags": [
+        "world explorations"
+      ]
+    }
+  ],
+  "tastings": [],
+  "meta": {
+    "source": "nespresso.com/fr/fr/order/capsules/original",
+    "scrapedAt": "2026-02-23T08:19:53.209Z",
+    "count": 63
+  }
+}
