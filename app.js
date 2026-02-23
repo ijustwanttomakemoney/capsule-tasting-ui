@@ -47,7 +47,8 @@ function load(){
     const raw = localStorage.getItem(STORAGE_KEY);
     if(!raw) return { catalog: SEED_CATALOG, tastings: [] };
     const parsed = JSON.parse(raw);
-    const catalog = Array.isArray(parsed.catalog) ? parsed.catalog : SEED_CATALOG;
+    const catalogRaw = Array.isArray(parsed.catalog) ? parsed.catalog : SEED_CATALOG;
+    const catalog = dedupeCatalog(catalogRaw);
     const tastingsRaw = Array.isArray(parsed.tastings) ? parsed.tastings : [];
     const tastings = tastingsRaw.map(normalizeTasting).filter(Boolean);
     return { catalog, tastings };
@@ -144,6 +145,39 @@ function getMyStatsByCapsuleId(){
     const avg = arr.reduce((s,x)=>s+(x.rating||0),0)/arr.length;
     const last = arr.map(x=>x.date).sort().at(-1);
     out.set(id, { count: arr.length, avgRating: avg, lastDate: last });
+  }
+  return out;
+}
+
+function dedupeCatalog(catalog){
+  // Prevent exact duplicates of the same capsule concept (same system + same name)
+  // while keeping the first seen ID stable.
+  const normName = (s)=>String(s||'').trim().toLowerCase();
+  const out = [];
+  const byKey = new Map();
+
+  for(const c of (catalog||[])){
+    if(!c || !c.name) continue;
+    const system = c.system || 'original';
+    const key = `${system}:${normName(c.name)}`;
+    const prev = byKey.get(key);
+    if(!prev){
+      const copy = { ...c, system };
+      byKey.set(key, copy);
+      out.push(copy);
+    }else{
+      // merge: keep existing id, merge missing fields
+      const merged = {
+        ...prev,
+        ...c,
+        id: prev.id || c.id,
+        name: prev.name || c.name,
+        system,
+        tags: Array.from(new Set([...(prev.tags||[]), ...(c.tags||[])])),
+      };
+      // keep the object reference in out by mutating
+      Object.assign(prev, merged);
+    }
   }
   return out;
 }
@@ -637,8 +671,8 @@ importInput.addEventListener('change', async ()=>{
     const parsed = JSON.parse(txt);
     if(!parsed || typeof parsed !== 'object') throw new Error('bad json');
     state = {
-      catalog: Array.isArray(parsed.catalog) ? parsed.catalog : state.catalog,
-      tastings: Array.isArray(parsed.tastings) ? parsed.tastings : state.tastings,
+      catalog: dedupeCatalog(Array.isArray(parsed.catalog) ? parsed.catalog : state.catalog),
+      tastings: (Array.isArray(parsed.tastings) ? parsed.tastings : state.tastings).map(normalizeTasting).filter(Boolean),
     };
     save(state);
     renderTagDropdown(tagFilter, uniqTags(), ui.tagOn, {onChange: ()=>{ showCatalog(); render(); }});
