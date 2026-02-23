@@ -39,6 +39,10 @@
     <aside class="sidebar" aria-label="Filters">
       <div class="panel">
         <div class="panel__title">Filters</div>
+        <div class="sidebar__actions" style="margin-top:10px">
+          <button id="loadNespressoBtn" class="btn btn--secondary" type="button">Load Nespresso catalog</button>
+        </div>
+        <div class="hint" style="margin-top:8px">Loads <code>nespresso-original-catalog.json</code> (built-in).</div>
 
         <div class="field">
           <label class="label" for="system">System</label>
@@ -81,19 +85,7 @@
         </div>
       </div>
 
-      <div class="panel">
-        <div class="panel__title">Quick actions</div>
-        <div class="miniActions">
-          <button id="loadNespressoBtn" class="btn btn--secondary">Load Nespresso catalog</button>
-          <button id="exportBtn" class="btn btn--secondary">Export JSON</button>
-          <label class="btn btn--secondary fileBtn">
-            Import JSON
-            <input id="importInput" type="file" accept="application/json" hidden>
-          </label>
-          <button id="wipeBtn" class="btn btn--danger">Clear all data</button>
-          <div class="hint">“Load Nespresso catalog” reads <code>nespresso-original-catalog.json</code> from this folder.</div>
-        </div>
-      </div>
+<!-- Quick actions removed (per Yan) -->
     </aside>
 
     <section class="content" aria-label="Catalog">
