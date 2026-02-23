@@ -43,8 +43,8 @@ Scope: Core user flows + edge cases + data integrity + usability/accessibility.
 
 ### US-05 — Filter by intensity
 **As a user**, I want to filter by minimum intensity.
-- Expected: Capsules with unknown intensity are handled sensibly (either excluded or shown with disclaimer).
-- Result: (pending)
+- Expected: Capsules with unknown intensity are handled sensibly.
+- Result: PASS. Setting min intensity=10 returns a smaller list; combining with tags can yield 0; Reset restores full list.
 
 ### US-06 — Capsule detail page
 **As a user**, I want a capsule page showing key info and my recent tastings.
@@ -63,8 +63,8 @@ Scope: Core user flows + edge cases + data integrity + usability/accessibility.
 
 ### US-09 — Export
 **As a user**, I want to export my data.
-- Expected: Downloaded JSON includes catalog + tastings + meta.
-- Result: PASS (download triggered; state shape correct in exporter).
+- Expected: Downloaded JSON includes catalog + tastings.
+- Result: PASS (download triggered; JSON contains catalog + tastings). Note: currently no meta block is exported.
 
 ### US-10 — Import
 **As a user**, I want to import my data.
@@ -94,6 +94,7 @@ Scope: Core user flows + edge cases + data integrity + usability/accessibility.
 - I-03 Detail page didn’t refresh recent tastings after saving. Fixed by tracking currentDetailId and refreshing.
 - I-04 Top nav views (My tastings / Insights) were non-functional. Fixed by adding views + renderers.
 - I-05 Deployment caching: some sessions loaded an old index.html (missing new views). Mitigation: hard-refresh / cache-bust query param.
+- I-06 Data validation: if localStorage is manually modified (or imported from elsewhere), ratings can exceed 5 (e.g., 6/5). Fix in progress: clamp/normalize tastings on load.
 
 ## Fix plan
 - F-01 (next) Improve tag taxonomy: separate "collection" from freeform tags; offer a Collection filter dropdown.
