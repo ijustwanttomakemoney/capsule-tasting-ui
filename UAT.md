@@ -53,8 +53,8 @@ Scope: Core user flows + edge cases + data integrity + usability/accessibility.
 
 ### US-07 — Log a tasting
 **As a user**, I want to log tasting attributes quickly.
-- Expected: Modal pre-fills capsule fields; can save; after save, detail page shows the entry.
-- Result: PASS. End-to-end flow works.
+- Expected: Modal pre-fills capsule fields; can save; after save, detail page + My tastings show the entry.
+- Result: PASS. Logged Arpeggio tasting (rating 5/5, acidity 1/5, bitterness 4/5, aroma 4/5, notes, tag). Entry appears in detail page + My tastings.
 
 ### US-08 — Data persistence
 **As a user**, I want my tastings to stay after closing/reopening.
