@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Capsule Tasting Log</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-20260223-29.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__left">
+      <div class="brand">
+        <div class="brand__mark" aria-hidden="true"></div>
+        <div class="brand__text">
+          <div class="brand__title">Capsule Tasting</div>
+          <div class="brand__subtitle">Personal flavour notes</div>
+        </div>
+      </div>
+
+      <nav class="topnav" aria-label="Primary">
+        <button class="chip chip--active" data-view="catalog">Capsules</button>
+        <button class="chip" data-view="log">My tastings</button>
+        <button class="chip" data-view="stats">Insights</button>
+      </nav>
+    </div>
+
+    <div class="topbar__right">
+      <div class="search">
+        <input id="q" type="search" placeholder="Search capsules, notes…" autocomplete="off" />
+      </div>
+    </div>
+  </header>
+
+  <main class="layout layout--single">
+    <section class="content" aria-label="Catalog">
+      <div id="viewCatalog">
+        <div class="content__head">
+          <div>
+            <h1 class="h1">Original capsules</h1>
+            <div class="sub">Search, open a capsule page, then log your tasting.</div>
+          </div>
+          <div class="sort">
+            <label class="label" for="sort">Sort</label>
+            <select id="sort">
+              <option value="featured">Featured</option>
+              <option value="intensity_desc">Intensity (high → low)</option>
+              <option value="intensity_asc">Intensity (low → high)</option>
+              <option value="rating_desc">My rating (high → low)</option>
+              <option value="recent">Recently tasted</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="grid" class="grid" role="list"></div>
+
+        <div id="empty" class="empty" hidden>
+          <div class="empty__title">Loading…</div>
+          <div class="empty__sub">If it stays empty, refresh once.</div>
+        </div>
+      </div>
+
+      <div id="viewDetail" class="detail" hidden>
+        <div class="detail__nav">
+          <button id="backBtn" class="btn btn--ghost">← Back to capsules</button>
+        </div>
+
+        <div class="detail__card">
+          <div class="detail__hero">
+            <div class="detail__badge" id="detailBadge">ORIGINAL</div>
+          </div>
+          <div class="detail__body">
+            <div class="detail__titleRow">
+              <h1 class="detail__title" id="detailTitle">Capsule</h1>
+              <button id="detailLogBtn" class="btn btn--primary">Log this tasting</button>
+            </div>
+            <div class="detail__meta" id="detailMeta"></div>
+            <div class="detail__bars">
+              <div class="barRow">
+                <div class="barLabel">Intensity</div>
+                <div class="bar"><div class="barFill" id="barIntensity"></div></div>
+                <div class="barVal" id="valIntensity">—</div>
+              </div>
+            </div>
+            <div class="detail__section">
+              <div class="sectionTitle">My recent tastings</div>
+              <div class="tastingList" id="detailTastings"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="viewLog" class="detail" hidden>
+        <div class="detail__card"><div class="detail__body">
+          <div class="detail__titleRow">
+            <h1 class="detail__title">My tastings</h1>
+            <button id="logNewBtn" class="btn btn--primary">Log a tasting</button>
+          </div>
+          <div class="detail__section">
+            <div class="sectionTitle">All tastings</div>
+            <div class="tastingList" id="logList"></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div id="viewStats" class="detail" hidden>
+        <div class="detail__card"><div class="detail__body">
+          <div class="detail__titleRow"><h1 class="detail__title">Insights</h1></div>
+          <div class="detail__section">
+            <div class="sectionTitle">Summary</div>
+            <div class="tastingList" id="statsBlocks"></div>
+          </div>
+        </div></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal__backdrop" data-close="1"></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal__head">
+        <div>
+          <div class="kicker">Tasting log</div>
+          <div id="modalTitle" class="modal__title">Log a capsule</div>
+        </div>
+        <button class="iconBtn" data-close="1" aria-label="Close">✕</button>
+      </div>
+
+      <form id="form" class="modal__body">
+        <div class="twoCol">
+          <div class="field">
+            <label class="label" for="capsuleName">Capsule</label>
+            <input id="capsuleName" required readonly />
+            <div class="hint">(from catalog)</div>
+          </div>
+          <div class="field">
+            <label class="label" for="capsuleSystem">System</label>
+            <select id="capsuleSystem" required disabled>
+              <option value="original">Original</option>
+            </select>
+            <div class="hint">Original only.</div>
+          </div>
+        </div>
+
+        <div class="twoCol">
+          <div class="field">
+            <label class="label" for="capsuleType">Drink</label>
+            <select id="capsuleType" required disabled>
+              <option value="espresso">Espresso</option>
+              <option value="lungo">Lungo</option>
+              <option value="ristretto">Ristretto</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label" for="capsuleIntensity">Intensity</label>
+            <input id="capsuleIntensity" type="number" min="0" max="13" value="8" readonly />
+          </div>
+        </div>
+
+        <div class="threeCol">
+          <div class="field">
+            <label class="label" for="capsuleAcidity">Acidity (0–5)</label>
+            <input id="capsuleAcidity" type="range" min="0" max="5" value="3" step="1" />
+            <div class="hint" id="acidityVal">3/5</div>
+          </div>
+          <div class="field">
+            <label class="label" for="capsuleBitterness">Bitterness (0–5)</label>
+            <input id="capsuleBitterness" type="range" min="0" max="5" value="3" step="1" />
+            <div class="hint" id="bitternessVal">3/5</div>
+          </div>
+          <div class="field">
+            <label class="label" for="capsuleAroma">Aroma (0–5)</label>
+            <input id="capsuleAroma" type="range" min="0" max="5" value="4" step="1" />
+            <div class="hint" id="aromaVal">4/5</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="capsuleNotes">Notes</label>
+          <textarea id="capsuleNotes" rows="4" placeholder="What did you notice? (aromas, aftertaste, milk pairing, etc.)"></textarea>
+        </div>
+
+        <div class="twoCol">
+          <div class="field">
+            <label class="label" for="capsuleRating">My rating (0–5)</label>
+            <input id="capsuleRating" type="range" min="0" max="5" value="4" step="1" />
+            <div class="hint" id="ratingVal">4/5</div>
+          </div>
+          <div class="field">
+            <label class="label" for="capsuleDate">Date</label>
+            <input id="capsuleDate" type="date" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Tags</label>
+          <details class="dropdown" open>
+            <summary class="dropdown__summary">Select tags</summary>
+            <div class="dropdown__panel" id="tagPicker"></div>
+          </details>
+        </div>
+
+        <div class="modal__actions">
+          <button type="button" class="btn btn--ghost" data-close="1">Cancel</button>
+          <button type="submit" class="btn btn--primary">Save tasting</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app-20260223-28.js"></script>
+</body>
+</html>
