@@ -235,5 +235,18 @@
   </div>
 
   <script src="app-20260223-13.js"></script>
+  <script>
+    // Safety net: if JS fails to render the grid, show a visible error hint.
+    window.addEventListener('error', function(e){
+      try{
+        const empty = document.getElementById('empty');
+        if(empty){
+          empty.hidden = false;
+          empty.querySelector('.empty__title').textContent = 'App failed to load';
+          empty.querySelector('.empty__sub').textContent = 'Please refresh (hard reload) or open with ?v=latest.';
+        }
+      }catch(_){/* ignore */}
+    });
+  </script>
 </body>
 </html>
