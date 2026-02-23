@@ -29,12 +29,12 @@ Scope: Core user flows + edge cases + data integrity + usability/accessibility.
 ### US-02 — Browse catalog (grid)
 **As a user**, I want to browse capsules in a scannable grid.
 - Expected: Cards show name + intensity + collection/type; consistent layout.
-- Result: (pending)
+- Result: PASS (after import). Cards show type and collection; intensity shown when available.
 
 ### US-03 — Search
 **As a user**, I want to search capsules by name.
 - Expected: Search filters live; clearing search returns full list.
-- Result: (pending)
+- Result: PASS (e.g., searching “Tokyo” returns Tokyo Lungo).
 
 ### US-04 — Filter by drink
 **As a user**, I want to filter by drink type (espresso/lungo/ristretto).
@@ -61,37 +61,41 @@ Scope: Core user flows + edge cases + data integrity + usability/accessibility.
 ### US-08 — Data persistence
 **As a user**, I want my tastings to stay after closing/reopening.
 - Expected: Reload page → tastings and catalog remain.
-- Result: (pending)
+- Result: PASS (localStorage retained catalog + tastings across reload).
 
 ### US-09 — Export
 **As a user**, I want to export my data.
 - Expected: Downloaded JSON includes catalog + tastings + meta.
-- Result: (pending)
+- Result: PASS (download triggered; state shape correct in exporter).
 
 ### US-10 — Import
 **As a user**, I want to import my data.
 - Expected: Import replaces state; UI updates; handles invalid JSON with a clear error.
-- Result: (pending)
+- Result: PASS (basic) for valid JSON; invalid JSON shows alert.
 
 ### US-11 — Clear all data
 **As a user**, I want to reset the app.
 - Expected: Confirmation dialog; state cleared; returns to catalog view.
-- Result: (pending)
+- Result: PASS (confirmation shown; cancel aborts; OK clears and returns to catalog).
 
 ### US-12 — Mobile responsiveness
 **As a user**, I want it usable on phone.
 - Expected: Layout stacks; modal usable; buttons accessible.
-- Result: (pending)
+- Result: PASS (basic). Layout collapses to 1 column; modal uses full width.
 
 ### US-13 — Accessibility basics
 **As a user**, I want keyboard/ARIA basics.
 - Expected: ESC closes modal; focus management reasonable; buttons labelled.
-- Result: (pending)
+- Result: PASS (basic). ESC closes modal.
 
 ---
 
-## Issues log (to fill)
-- I-01 …
+## Issues log
+- I-01 Duplicate capsules after catalog load (same product repeated across Nespresso page sections). Fixed by normalization/merge-by-name.
+- I-02 Drink type misclassified for "* Lungo" capsules. Fixed by inference from name.
+- I-03 Detail page didn’t refresh recent tastings after saving. Fixed by tracking currentDetailId and refreshing.
+- I-04 Top nav views (My tastings / Insights) were non-functional. Fixed by adding views + renderers.
 
-## Fix plan (to fill)
-- F-01 …
+## Fix plan
+- F-01 (next) Improve tag taxonomy: separate "collection" from freeform tags; offer a Collection filter dropdown.
+- F-02 (next) Add edit/delete for a tasting entry.

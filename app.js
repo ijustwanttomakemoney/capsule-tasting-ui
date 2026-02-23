@@ -84,9 +84,12 @@ const exportBtn = document.getElementById('exportBtn');
 const importInput = document.getElementById('importInput');
 const wipeBtn = document.getElementById('wipeBtn');
 
-// Views (catalog vs detail)
+// Views (catalog vs detail/log/stats)
 const viewCatalog = document.getElementById('viewCatalog');
 const viewDetail = document.getElementById('viewDetail');
+const viewLog = document.getElementById('viewLog');
+const viewStats = document.getElementById('viewStats');
+
 const backBtn = document.getElementById('backBtn');
 const detailTitle = document.getElementById('detailTitle');
 const detailMeta = document.getElementById('detailMeta');
@@ -94,6 +97,13 @@ const barIntensity = document.getElementById('barIntensity');
 const valIntensity = document.getElementById('valIntensity');
 const detailTastings = document.getElementById('detailTastings');
 const detailLogBtn = document.getElementById('detailLogBtn');
+
+// Log view
+const logList = document.getElementById('logList');
+const logNewBtn = document.getElementById('logNewBtn');
+
+// Stats view
+const statsBlocks = document.getElementById('statsBlocks');
 
 let ui = {
   query: '',
@@ -243,14 +253,27 @@ function escapeHtml(s){
     .replaceAll("'",'&#39;');
 }
 
+function setView(name){
+  viewCatalog.hidden = name !== 'catalog';
+  viewDetail.hidden = name !== 'detail';
+  viewLog.hidden = name !== 'log';
+  viewStats.hidden = name !== 'stats';
+}
+
 function showCatalog(){
-  viewDetail.hidden = true;
-  viewCatalog.hidden = false;
+  setView('catalog');
 }
 
 function showDetail(){
-  viewCatalog.hidden = true;
-  viewDetail.hidden = false;
+  setView('detail');
+}
+
+function showLog(){
+  setView('log');
+}
+
+function showStats(){
+  setView('stats');
 }
 
 function render(){
@@ -385,15 +408,105 @@ function clampInt(v, min, max){
   return Math.max(min, Math.min(max, Math.round(n)));
 }
 
+function renderLog(){
+  if(!logList) return;
+  const items = [...(state.tastings||[])].sort((a,b)=> (a.date < b.date ? 1 : -1));
+  logList.innerHTML = '';
+
+  if(items.length === 0){
+    const div = document.createElement('div');
+    div.className = 'empty';
+    div.innerHTML = `<div class="empty__title">No tastings yet</div><div class="empty__sub">Log your first capsule to start building your history.</div>`;
+    logList.appendChild(div);
+    return;
+  }
+
+  for(const t of items){
+    const row = document.createElement('div');
+    row.className = 'tastingItem';
+    row.innerHTML = `
+      <div class="tastingItem__left">
+        <div class="tastingItem__title">${escapeHtml(t.name)} — ${t.rating ?? '—'}/5</div>
+        <div class="tastingItem__sub">${escapeHtml(t.date)} · Acidity ${t.acidity ?? '—'}/5 · Bitterness ${t.bitterness ?? '—'}/5 · Aroma ${t.aroma ?? '—'}/5</div>
+      </div>
+      <div class="tastingItem__right">
+        <button class="btn btn--secondary" type="button">Open</button>
+      </div>
+    `;
+
+    row.querySelector('button')?.addEventListener('click', ()=>{
+      const cap = state.catalog.find(c=>c.id===t.capsuleId) || { id: t.capsuleId, name: t.name, type: t.type, intensity: t.intensity, collection: null };
+      setActiveTopNav('catalog');
+      openDetail(cap);
+    });
+
+    logList.appendChild(row);
+  }
+}
+
+function renderStats(){
+  if(!statsBlocks) return;
+  const tastings = state.tastings||[];
+  const total = tastings.length;
+  const avg = total ? (tastings.reduce((s,x)=>s+(x.rating||0),0)/total) : null;
+  const unique = new Set(tastings.map(t=>t.capsuleId)).size;
+
+  statsBlocks.innerHTML = '';
+  const blocks = [
+    {title:'Total tastings', val: String(total)},
+    {title:'Unique capsules', val: String(unique)},
+    {title:'Average rating', val: avg==null ? '—' : `${avg.toFixed(1)}/5`},
+  ];
+
+  for(const b of blocks){
+    const row = document.createElement('div');
+    row.className = 'tastingItem';
+    row.innerHTML = `<div class="tastingItem__left"><div class="tastingItem__title">${escapeHtml(b.title)}</div><div class="tastingItem__sub">&nbsp;</div></div><div class="tastingItem__right"><div class="rating">${escapeHtml(b.val)}</div></div>`;
+    statsBlocks.appendChild(row);
+  }
+}
+
+function setActiveTopNav(view){
+  for(const b of document.querySelectorAll('.topnav .chip')){
+    b.classList.toggle('chip--active', b.dataset.view === view);
+  }
+}
+
+function navigateView(view){
+  if(view === 'catalog'){
+    setActiveTopNav('catalog');
+    showCatalog();
+    render();
+    return;
+  }
+  if(view === 'log'){
+    setActiveTopNav('log');
+    showLog();
+    renderLog();
+    return;
+  }
+  if(view === 'stats'){
+    setActiveTopNav('stats');
+    showStats();
+    renderStats();
+    return;
+  }
+}
+
 // Events
-q.addEventListener('input', (e)=>{ ui.query = e.target.value; showCatalog(); render(); });
+q.addEventListener('input', (e)=>{ ui.query = e.target.value; navigateView('catalog'); });
 // system is fixed to Original (disabled)
-type.addEventListener('change', (e)=>{ ui.type = e.target.value; showCatalog(); render(); });
-intensity.addEventListener('input', (e)=>{ ui.minIntensity = Number(e.target.value); showCatalog(); render(); });
-sort.addEventListener('change', (e)=>{ ui.sort = e.target.value; showCatalog(); render(); });
+type.addEventListener('change', (e)=>{ ui.type = e.target.value; navigateView('catalog'); });
+intensity.addEventListener('input', (e)=>{ ui.minIntensity = Number(e.target.value); navigateView('catalog'); });
+sort.addEventListener('change', (e)=>{ ui.sort = e.target.value; navigateView('catalog'); });
+
+for(const b of document.querySelectorAll('.topnav .chip')){
+  b.addEventListener('click', ()=>navigateView(b.dataset.view));
+}
 
 backBtn.addEventListener('click', ()=>{
   currentDetailId = null;
+  setActiveTopNav('catalog');
   showCatalog();
   history.replaceState(null,'', '#');
 });
@@ -412,6 +525,7 @@ resetFilters.addEventListener('click', ()=>{
 renderTagChips(tagFilter, uniqTags(), ui.tagOn);
 
 addBtn.addEventListener('click', ()=>openModal(null));
+logNewBtn?.addEventListener('click', ()=>openModal(null));
 
 capsuleAcidity.addEventListener('input', ()=>{ acidityVal.textContent = `${capsuleAcidity.value}/5`; });
 capsuleBitterness.addEventListener('input', ()=>{ bitternessVal.textContent = `${capsuleBitterness.value}/5`; });
