@@ -344,7 +344,7 @@ function showStats(){
 }
 
 function render(){
-  intensityVal.textContent = ui.minIntensity === 0 ? 'Any' : `≥ ${ui.minIntensity}`;
+  if(intensityVal) intensityVal.textContent = ui.minIntensity === 0 ? 'Any' : `≥ ${ui.minIntensity}`;
 
   const filtered = state.catalog.filter(matchCapsule);
   const sorted = getSorted(filtered);
