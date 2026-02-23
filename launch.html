@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Capsule Tasting Log</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-20260223-29.css" />
+</head>
+<body>
+  <div id="app"></div>
+  <script src="app-20260223-30.js"></script>
+  <script>
+    // If index.html gets cached hard on mobile, this file is the cache-busting entry.
+    // Redirect into the normal app route.
+    if(!location.hash) location.replace('./?v=launch#catalog');
+  </script>
+</body>
+</html>
