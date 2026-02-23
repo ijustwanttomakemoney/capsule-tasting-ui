@@ -514,7 +514,7 @@ function normalizeCatalog(incoming){
     const key = normName(c.name);
     const prev = m.get(key);
 
-    const inferredType = normalizeDrinkTypeFromName(c.name) || c.type || 'espresso';
+    const inferredType = normalizeDrinkTypeFromName(c.name) || normalizeDrinkTypeFromName(prev?.name) || c.type || prev?.type || 'espresso';
     const collections = new Set([...(prev?.collections||[]), ...(prev?.collection?[prev.collection]:[]), ...(c.collections||[]), ...(c.collection?[c.collection]:[])]
       .filter(Boolean));
 
@@ -535,6 +535,9 @@ function normalizeCatalog(incoming){
       // Merge tags
       tags: Array.from(new Set([...(prev?.tags||[]), ...(c.tags||[])])),
     };
+
+    // Force type inference from final name (fixes cases like "Tokyo Lungo" coming in as espresso).
+    merged.type = normalizeDrinkTypeFromName(merged.name) || merged.type || 'espresso';
 
     m.set(key, merged);
   }
