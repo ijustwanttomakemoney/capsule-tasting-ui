@@ -304,8 +304,11 @@ function closeModal(){
   modal.dataset.capsuleId = '';
 }
 
+let currentDetailId = null;
+
 function openDetail(c){
   if(!c) return;
+  currentDetailId = c.id;
   const stats = getMyStatsByCapsuleId().get(c.id);
 
   detailTitle.textContent = c.name;
@@ -390,6 +393,7 @@ intensity.addEventListener('input', (e)=>{ ui.minIntensity = Number(e.target.val
 sort.addEventListener('change', (e)=>{ ui.sort = e.target.value; showCatalog(); render(); });
 
 backBtn.addEventListener('click', ()=>{
+  currentDetailId = null;
   showCatalog();
   history.replaceState(null,'', '#');
 });
@@ -460,7 +464,13 @@ form.addEventListener('submit', (e)=>{
   save(state);
   closeModal();
   renderTagChips(tagFilter, uniqTags(), ui.tagOn);
-  render();
+
+  // If the user is currently viewing this capsule's detail page, refresh it.
+  if(currentDetailId && currentDetailId === cap.id && !viewDetail.hidden){
+    openDetail(cap);
+  }else{
+    render();
+  }
 });
 
 exportBtn.addEventListener('click', ()=>{

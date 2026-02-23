@@ -50,12 +50,13 @@ Scope: Core user flows + edge cases + data integrity + usability/accessibility.
 ### US-06 — Capsule detail page
 **As a user**, I want a capsule page showing key info and my recent tastings.
 - Expected: Intensity bar correct; “Log this tasting” logs for that capsule.
-- Result: (pending)
+- Result: PARTIAL. Detail page loads, but after saving a tasting the “recent tastings” list did not refresh.
+- Fix: Track `currentDetailId` and refresh detail view after save when relevant.
 
 ### US-07 — Log a tasting
 **As a user**, I want to log tasting attributes quickly.
 - Expected: Modal pre-fills capsule fields; can save; after save, detail page shows the entry.
-- Result: (pending)
+- Result: PARTIAL. Save works and persists to localStorage, but UI refresh issue (see US-06).
 
 ### US-08 — Data persistence
 **As a user**, I want my tastings to stay after closing/reopening.
