@@ -35,60 +35,16 @@
     </div>
   </header>
 
-  <main class="layout">
-    <aside class="sidebar" aria-label="Filters">
-      <div class="panel">
-        <div class="panel__title">Filters</div>
-        <div class="sidebar__actions" style="margin-top:10px">
+  <main class="layout layout--single">
+    <section class="content" aria-label="Catalog">
+      <div class="content__head" style="margin-top:6px">
+        <div>
+          <div class="sub" style="margin:0">Original capsules catalog</div>
+        </div>
+        <div class="sidebar__actions" style="justify-content:flex-end; gap:10px">
           <button id="loadNespressoBtn" class="btn btn--secondary" type="button">Load Nespresso catalog</button>
         </div>
-        <div class="hint" style="margin-top:8px">Loads <code>nespresso-original-catalog.json</code> (built-in).</div>
-
-        <div class="field">
-          <label class="label" for="system">System</label>
-          <select id="system" disabled>
-            <option value="original">Original</option>
-          </select>
-          <div class="hint">This interface is for Original capsules only.</div>
-        </div>
-
-        <div class="field">
-          <label class="label" for="type">Drink</label>
-          <select id="type">
-            <option value="all">All</option>
-            <option value="espresso">Espresso</option>
-            <option value="lungo">Lungo</option>
-            <option value="ristretto">Ristretto</option>
-            <option value="milk">Works with milk</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <div class="labelRow">
-            <label class="label" for="intensity">Intensity</label>
-            <span class="hint" id="intensityVal">Any</span>
-          </div>
-          <input id="intensity" type="range" min="0" max="13" value="0" />
-        </div>
-
-        <div class="field">
-          <label class="label">Tags</label>
-          <details class="dropdown" open>
-            <summary class="dropdown__summary">Select tags</summary>
-            <div class="dropdown__panel" id="tagFilter"></div>
-          </details>
-          <div class="hint">Filters require ALL selected tags.</div>
-        </div>
-
-        <div class="sidebar__actions">
-          <button id="resetFilters" class="btn btn--ghost">Reset</button>
-        </div>
       </div>
-
-<!-- Quick actions removed (per Yan) -->
-    </aside>
-
-    <section class="content" aria-label="Catalog">
       <div id="viewCatalog">
         <div class="content__head">
           <div>

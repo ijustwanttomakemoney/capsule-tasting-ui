@@ -79,6 +79,7 @@ a{color:inherit}
   max-width: 1240px;
   margin:0 auto;
 }
+.layout--single{grid-template-columns: 1fr}
 
 .sidebar{position:sticky; top:76px; align-self:start; display:flex; flex-direction:column; gap:12px}
 .panel{

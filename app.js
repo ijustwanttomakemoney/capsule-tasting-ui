@@ -227,8 +227,11 @@ function matchCapsule(c){
   const text = `${c.name} ${(c.tags||[]).join(' ')}`.toLowerCase();
   const qq = ui.query.trim().toLowerCase();
   if(qq && !text.includes(qq)) return false;
-  // Original-only app; keep system filter for forward-compat but fixed to original.
-if(c.system !== 'original') return false;
+
+  // Original-only app
+  if(c.system !== 'original') return false;
+
+  // Optional filters (UI may hide them, but logic stays safe)
   if(ui.type !== 'all' && c.type !== ui.type) return false;
   if(ui.minIntensity > 0 && (c.intensity||0) < ui.minIntensity) return false;
   if(ui.tagOn.size){
@@ -559,10 +562,11 @@ function navigateView(view){
 
 // Events
 q.addEventListener('input', (e)=>{ ui.query = e.target.value; navigateView('catalog'); });
-// system is fixed to Original (disabled)
-type.addEventListener('change', (e)=>{ ui.type = e.target.value; navigateView('catalog'); });
-intensity.addEventListener('input', (e)=>{ ui.minIntensity = Number(e.target.value); navigateView('catalog'); });
-sort.addEventListener('change', (e)=>{ ui.sort = e.target.value; navigateView('catalog'); });
+
+// Filters might be removed from the UI; guard listeners.
+if(type) type.addEventListener('change', (e)=>{ ui.type = e.target.value; navigateView('catalog'); });
+if(intensity) intensity.addEventListener('input', (e)=>{ ui.minIntensity = Number(e.target.value); navigateView('catalog'); });
+if(sort) sort.addEventListener('change', (e)=>{ ui.sort = e.target.value; navigateView('catalog'); });
 
 for(const b of document.querySelectorAll('.topnav .chip')){
   b.addEventListener('click', ()=>navigateView(b.dataset.view));
@@ -575,18 +579,20 @@ backBtn.addEventListener('click', ()=>{
   history.replaceState(null,'', '#');
 });
 
-resetFilters.addEventListener('click', ()=>{
-  ui = { query:'', system:'original', type:'all', minIntensity:0, sort:'featured', tagOn: new Set() };
-  q.value = '';
-  system.value = 'original';
-  type.value = 'all';
-  intensity.value = 0;
-  sort.value = 'featured';
-  renderTagDropdown(tagFilter, uniqTags(), ui.tagOn, {onChange: ()=>{ showCatalog(); render(); }});
-  render();
-});
+if(resetFilters){
+  resetFilters.addEventListener('click', ()=>{
+    ui = { query:'', system:'original', type:'all', minIntensity:0, sort:'featured', tagOn: new Set() };
+    q.value = '';
+    if(system) system.value = 'original';
+    if(type) type.value = 'all';
+    if(intensity) intensity.value = 0;
+    if(sort) sort.value = 'featured';
+    if(tagFilter) renderTagDropdown(tagFilter, uniqTags(), ui.tagOn, {onChange: ()=>{ showCatalog(); render(); }});
+    render();
+  });
+}
 
-renderTagDropdown(tagFilter, uniqTags(), ui.tagOn, {onChange: ()=>{ showCatalog(); render(); }});
+if(tagFilter) renderTagDropdown(tagFilter, uniqTags(), ui.tagOn, {onChange: ()=>{ showCatalog(); render(); }});
 
 addBtn.addEventListener('click', ()=>openModal(null));
 logNewBtn?.addEventListener('click', ()=>openModal(null));
