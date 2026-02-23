@@ -39,8 +39,7 @@ Scope: Core user flows + edge cases + data integrity + usability/accessibility.
 ### US-04 — Filter by drink
 **As a user**, I want to filter by drink type (espresso/lungo/ristretto).
 - Expected: Filter matches catalog metadata; lungo items actually appear under lungo.
-- Result: FAIL (initial scrape). Many items named "* Lungo" were classified as espresso.
-- Fix: Infer drink type from capsule name (contains Lungo / Espresso / Ristretto) during catalog normalization.
+- Result: PASS (after fix). Lungo list includes: Buenos Aires / Shanghai / Stockholm / Tokyo / Vienna (+ decaf Vienna Lungo).
 
 ### US-05 — Filter by intensity
 **As a user**, I want to filter by minimum intensity.
@@ -50,13 +49,12 @@ Scope: Core user flows + edge cases + data integrity + usability/accessibility.
 ### US-06 — Capsule detail page
 **As a user**, I want a capsule page showing key info and my recent tastings.
 - Expected: Intensity bar correct; “Log this tasting” logs for that capsule.
-- Result: PARTIAL. Detail page loads, but after saving a tasting the “recent tastings” list did not refresh.
-- Fix: Track `currentDetailId` and refresh detail view after save when relevant.
+- Result: PASS (after fix). Detail page updates immediately after saving; recent tastings list shows the new entry.
 
 ### US-07 — Log a tasting
 **As a user**, I want to log tasting attributes quickly.
 - Expected: Modal pre-fills capsule fields; can save; after save, detail page shows the entry.
-- Result: PARTIAL. Save works and persists to localStorage, but UI refresh issue (see US-06).
+- Result: PASS. End-to-end flow works.
 
 ### US-08 — Data persistence
 **As a user**, I want my tastings to stay after closing/reopening.
@@ -95,6 +93,7 @@ Scope: Core user flows + edge cases + data integrity + usability/accessibility.
 - I-02 Drink type misclassified for "* Lungo" capsules. Fixed by inference from name.
 - I-03 Detail page didn’t refresh recent tastings after saving. Fixed by tracking currentDetailId and refreshing.
 - I-04 Top nav views (My tastings / Insights) were non-functional. Fixed by adding views + renderers.
+- I-05 Deployment caching: some sessions loaded an old index.html (missing new views). Mitigation: hard-refresh / cache-bust query param.
 
 ## Fix plan
 - F-01 (next) Improve tag taxonomy: separate "collection" from freeform tags; offer a Collection filter dropdown.
