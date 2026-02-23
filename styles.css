@@ -203,7 +203,25 @@ input[type="range"]{padding:0; height:28px}
 .small{color:var(--muted); font-size:12px}
 
 .pillGrid{display:flex; flex-wrap:wrap; gap:8px}
-.pill{
+
+/* Dropdown (details/summary) used for tag selection */
+.dropdown{border:1px solid var(--line); border-radius:12px; background:rgba(255,255,255,.02)}
+.dropdown__summary{
+  list-style:none;
+  cursor:pointer;
+  padding:10px 12px;
+  color:var(--muted);
+  font-weight:800;
+}
+.dropdown__summary::-webkit-details-marker{display:none}
+.dropdown__panel{padding:10px 12px; border-top:1px solid var(--line); max-height:220px; overflow:auto}
+
+.checkRow{display:flex; align-items:center; gap:10px; padding:6px 0}
+.checkRow input{width:16px; height:16px}
+.checkRow label{cursor:pointer; color:var(--text); font-weight:650}
+.checkRow small{color:var(--muted); margin-left:auto}
+
+.pill{ /* kept for other uses */
   padding:8px 10px;
   border-radius:999px;
   border:1px solid var(--line);

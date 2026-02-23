@@ -68,8 +68,12 @@
         </div>
 
         <div class="field">
-          <label class="label">Tasting tags</label>
-          <div class="pillGrid" id="tagFilter"></div>
+          <label class="label">Tags</label>
+          <details class="dropdown" open>
+            <summary class="dropdown__summary">Select tags</summary>
+            <div class="dropdown__panel" id="tagFilter"></div>
+          </details>
+          <div class="hint">Filters require ALL selected tags.</div>
         </div>
 
         <div class="sidebar__actions">
@@ -265,7 +269,10 @@
 
         <div class="field">
           <label class="label">Tags</label>
-          <div class="pillGrid" id="tagPicker"></div>
+          <details class="dropdown" open>
+            <summary class="dropdown__summary">Select tags</summary>
+            <div class="dropdown__panel" id="tagPicker"></div>
+          </details>
           <div class="hint">Pick 0–6 that fit your experience.</div>
         </div>
 

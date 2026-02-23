@@ -159,21 +159,33 @@ function uniqTags(){
   return Array.from(s).sort((a,b)=>a.localeCompare(b));
 }
 
-function renderTagChips(container, tags, setRef){
+function renderTagDropdown(container, tags, setRef, {onChange}={}){
   container.innerHTML = '';
+
   for(const tag of tags){
-    const b = document.createElement('button');
-    b.className = 'pill';
-    b.type = 'button';
-    b.textContent = tag;
-    b.dataset.on = setRef.has(tag) ? '1' : '0';
-    b.addEventListener('click', ()=>{
-      if(setRef.has(tag)) setRef.delete(tag);
-      else setRef.add(tag);
-      renderTagChips(container, tags, setRef);
-      render();
+    const id = `tag-${container.id}-${tag}`.replace(/[^a-z0-9:_-]/gi,'-');
+
+    const row = document.createElement('div');
+    row.className = 'checkRow';
+
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.id = id;
+    cb.checked = setRef.has(tag);
+
+    const lab = document.createElement('label');
+    lab.htmlFor = id;
+    lab.textContent = tag;
+
+    cb.addEventListener('change', ()=>{
+      if(cb.checked) setRef.add(tag);
+      else setRef.delete(tag);
+      if(typeof onChange === 'function') onChange();
     });
-    container.appendChild(b);
+
+    row.appendChild(cb);
+    row.appendChild(lab);
+    container.appendChild(row);
   }
 }
 
@@ -333,7 +345,7 @@ function openModal(capsule){
   // tag picker
   const tags = uniqTags();
   const chosen = new Set();
-  renderTagChips(tagPicker, tags, chosen);
+  renderTagDropdown(tagPicker, tags, chosen);
   tagPicker.dataset.bind = '1';
   tagPicker._chosen = chosen;
 
@@ -536,11 +548,11 @@ resetFilters.addEventListener('click', ()=>{
   type.value = 'all';
   intensity.value = 0;
   sort.value = 'featured';
-  renderTagChips(tagFilter, uniqTags(), ui.tagOn);
+  renderTagDropdown(tagFilter, uniqTags(), ui.tagOn, {onChange: ()=>{ showCatalog(); render(); }});
   render();
 });
 
-renderTagChips(tagFilter, uniqTags(), ui.tagOn);
+renderTagDropdown(tagFilter, uniqTags(), ui.tagOn, {onChange: ()=>{ showCatalog(); render(); }});
 
 addBtn.addEventListener('click', ()=>openModal(null));
 logNewBtn?.addEventListener('click', ()=>openModal(null));
@@ -595,7 +607,7 @@ form.addEventListener('submit', (e)=>{
 
   save(state);
   closeModal();
-  renderTagChips(tagFilter, uniqTags(), ui.tagOn);
+  renderTagDropdown(tagFilter, uniqTags(), ui.tagOn, {onChange: ()=>{ showCatalog(); render(); }});
 
   // If the user is currently viewing this capsule's detail page, refresh it.
   if(currentDetailId && currentDetailId === cap.id && !viewDetail.hidden){
@@ -629,7 +641,7 @@ importInput.addEventListener('change', async ()=>{
       tastings: Array.isArray(parsed.tastings) ? parsed.tastings : state.tastings,
     };
     save(state);
-    renderTagChips(tagFilter, uniqTags(), ui.tagOn);
+    renderTagDropdown(tagFilter, uniqTags(), ui.tagOn, {onChange: ()=>{ showCatalog(); render(); }});
     render();
   }catch(err){
     alert('Import failed: ' + err.message);
@@ -711,7 +723,7 @@ async function loadNespressoCatalog({mode}={mode:'merge'}){
   }
 
   save(state);
-  renderTagChips(tagFilter, uniqTags(), ui.tagOn);
+  renderTagDropdown(tagFilter, uniqTags(), ui.tagOn, {onChange: ()=>{ showCatalog(); render(); }});
   showCatalog();
   render();
 }
@@ -735,7 +747,7 @@ wipeBtn.addEventListener('click', ()=>{
   if(!ok) return;
   state = { catalog: SEED_CATALOG, tastings: [] };
   save(state);
-  renderTagChips(tagFilter, uniqTags(), ui.tagOn);
+  renderTagDropdown(tagFilter, uniqTags(), ui.tagOn, {onChange: ()=>{ showCatalog(); render(); }});
   showCatalog();
   render();
 });
@@ -747,7 +759,7 @@ render();
 window.addEventListener('storage', (e)=>{
   if(e.key === STORAGE_KEY){
     state = load();
-    renderTagChips(tagFilter, uniqTags(), ui.tagOn);
+    renderTagDropdown(tagFilter, uniqTags(), ui.tagOn, {onChange: ()=>{ showCatalog(); render(); }});
     render();
   }
 });
