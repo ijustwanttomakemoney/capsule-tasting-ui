@@ -237,13 +237,23 @@ input[type="range"]{padding:0; height:28px}
   background:linear-gradient(180deg, rgba(17,19,26,.95), rgba(17,19,26,.86));
   box-shadow: var(--shadow);
   overflow:hidden;
+
+  /* Make modal usable on smaller screens */
+  max-height: calc(100vh - 80px);
+  display:flex;
+  flex-direction:column;
 }
-.modal__head{display:flex; align-items:flex-start; justify-content:space-between; padding:16px 16px 10px; border-bottom:1px solid var(--line)}
+.modal__head{flex:0 0 auto; display:flex; align-items:flex-start; justify-content:space-between; padding:16px 16px 10px; border-bottom:1px solid var(--line)}
 .kicker{color:var(--muted2); font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.08em}
 .modal__title{font-weight:900; font-size:18px; margin-top:6px}
 .iconBtn{border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--text); border-radius:12px; padding:8px 10px; cursor:pointer}
 
-.modal__body{padding:16px}
+.modal__body{
+  flex: 1 1 auto;
+  padding:16px;
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+}
 .twoCol{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
 .threeCol{display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px}
 
@@ -325,4 +335,6 @@ input[type="range"]{padding:0; height:28px}
   .twoCol{grid-template-columns: 1fr}
   .threeCol{grid-template-columns: 1fr}
   .barRow{grid-template-columns: 90px 1fr 44px}
+
+  .modal__dialog{margin: 18px auto; max-height: calc(100vh - 36px)}
 }
