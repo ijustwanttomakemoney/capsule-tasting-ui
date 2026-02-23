@@ -39,7 +39,8 @@ Scope: Core user flows + edge cases + data integrity + usability/accessibility.
 ### US-04 — Filter by drink
 **As a user**, I want to filter by drink type (espresso/lungo/ristretto).
 - Expected: Filter matches catalog metadata; lungo items actually appear under lungo.
-- Result: (pending)
+- Result: FAIL (initial scrape). Many items named "* Lungo" were classified as espresso.
+- Fix: Infer drink type from capsule name (contains Lungo / Espresso / Ristretto) during catalog normalization.
 
 ### US-05 — Filter by intensity
 **As a user**, I want to filter by minimum intensity.
